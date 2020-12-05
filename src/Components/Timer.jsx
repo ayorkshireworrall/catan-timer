@@ -21,6 +21,7 @@ class Timer extends Component {
         this.pauseCountDown = this.pauseCountDown.bind(this);
         this.intervalHandle = "";
         this.toggleRules = this.toggleRules.bind(this);
+        this.timerRunning = false;
     }
 
     changeAdditionalTime = (additionalTime) => {
@@ -71,11 +72,15 @@ class Timer extends Component {
     }
 
     startCountDown() {
-        this.intervalHandle = setInterval(this.countDown, 1000);
+        if (!this.state.timerRunning) {
+            this.intervalHandle = setInterval(this.countDown, 1000);
+            this.setState({timerRunning: true})
+        }
     }
 
     pauseCountDown() {
         clearInterval(this.intervalHandle);
+        this.setState({timerRunning: false})
     }
 
     handleAddTime() {
@@ -96,7 +101,7 @@ class Timer extends Component {
 
     handleReset() {
         this.changeStartTime(this.state.ruleDefinedTotal);
-        this.setState({display:"clock"});
+        this.setState({display:"clock", timerRunning: false});
         clearInterval(this.intervalHandle);
     }
 
