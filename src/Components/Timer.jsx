@@ -84,9 +84,7 @@ class Timer extends Component {
     }
 
     handleAddTime() {
-        console.log(this.state.additionalTime);
         var newTotal = parseInt(this.state.totalInSeconds) + parseInt(this.state.additionalTime);
-        console.log(newTotal);
         var min = Math.floor(newTotal / 60);
         var sec = newTotal - (min * 60);
 
